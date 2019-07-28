@@ -1,3 +1,5 @@
+
+//global vars that keep track of correct and incorrect anwsers
 let right = 0
 let wrong = 0
 
@@ -20,12 +22,26 @@ let question ={
     correct: "He is the son of Frylock, created for reasons unknown."
     }
 }
-
+//variables that keep track of how many pages have cycled through
 let page = 0;
 let pageArray =[question.quest1,question.quest2];
 
+
+// Final Score Page, Does not continue to cycle
+function finalPage(){
+    if (page == 6){
+
+    }
+}
+
+//DOM function that creates the questions and anwsers 
 function questions (){
-    targetDiv = document.getElementById("container");
+    //targets container div and creates div to container questions, that can also be deleted 
+    daddyDiv = document.getElementById("container");
+    targetDiv = document.createElement('div');
+    targetDiv.setAttribute("id","temp")
+    daddyDiv.appendChild(targetDiv);
+
     elQuest = document.createElement('h1');
     elQuest.textContent = pageArray[page].quest;
     elQuest.setAttribute("id", "question");
@@ -51,27 +67,77 @@ function questions (){
     ela4.setAttribute("id","q4");
     targetDiv.appendChild(ela4);
 }
-questions()
+//anwser page function, this page exist to show the right anwser
+function anPage (){
+    daddyDiv = document.getElementById("container");
+    targetDiv = document.createElement('div');
+    targetDiv.setAttribute("id","temp")
+    daddyDiv.appendChild(targetDiv);
 
+    elAns = document.createElement('h1');
+    elAns.textContent = pageArray[page].correct;
+    elAns.setAttribute("id", "anwser");
+    targetDiv.appendChild(elAns);
+
+    elScore = document.createElement('h1');
+    elScore.textContent = "Right :" + right;
+    elScore.setAttribute("id", "right");
+    targetDiv.appendChild(elScore);
+
+    elWrong = document.createElement('h1');
+    elWrong.textContent = "Wrong :" + wrong;
+    elWrong.setAttribute("id", "wrong");
+    targetDiv.appendChild(elWrong);
+
+    page++;
+    
+}
+
+
+
+questions()
 //On click listeners that call to the earlier functions
 document.getElementById('q1').addEventListener('click', function () {
     if(pageArray[page].a1 == pageArray[page].correct){
-        alert("blarns")
+        right++;
+        targetDiv.remove();
+        anPage();
     }
     
 });
 document.getElementById('q2').addEventListener('click', function () {
     if(pageArray[page].a2 == pageArray[page].correct){
-        alert("blarns")
+        right++;
+        targetDiv.remove();
+        anPage();
+    }
+    else{
+        wrong++
+        targetDiv.remove();
+        anPage();
     }
 });
 document.getElementById('q3').addEventListener('click', function () {
     if(pageArray[page].a3 == pageArray[page].correct){
-        alert("blarns")
+        right++;
+        targetDiv.remove();
+        anPage();
+    }
+    else{
+        wrong++
+        targetDiv.remove();
+        anPage();
     }
 });
 document.getElementById('q4').addEventListener('click', function () {
     if(pageArray[page].a4 == pageArray[page].correct){
-        alert("blarns")
+        right++;
+        targetDiv.remove();
+        anPage();
+    }
+    else{
+        wrong++
+        targetDiv.remove();
+        anPage();
     }
 });
