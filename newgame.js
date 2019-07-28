@@ -68,8 +68,8 @@ let question ={
 //variables that keep track of how many pages have cycled through
 let page = 0;
 let pageArray =[question.quest1,question.quest2,question.quest3,question.quest4,question.quest5,question.quest6,question.quest7];
-let number = 10
-
+let number = 10;
+let num = 5;
 
 function run() {
     clearInterval(intervalId);
@@ -86,7 +86,6 @@ function decrement() {
             clearInterval(intervalId);
             wrong++
             targetDiv.remove(); 
-            number = 5;
             anPage();
 
     }
@@ -95,19 +94,27 @@ function decrement() {
 
 }
 function scoreRun() {
+    // num = 5;
     clearInterval(scoreId);
     scoreId = setInterval(decrease, 1000);
   }
 function decrease() {
-     number--;
-     if (number === 0) {
+     num--;
+     if (num === 0) {
+            // number = 10;
             clearInterval(scoreId);
             targetDiv.remove(); 
-            number = 10;
             finalPage(); 
             questions();
     }
 
+}
+//resets the interval so that it doesn't skip any pages
+function intReset(){
+    clearInterval(scoreId)
+    clearInterval(intervalId);
+    num = 5;
+    number = 10;
 }
 
 // Final Score Page, Does not continue to cycle
@@ -142,11 +149,13 @@ document.getElementById('q1').addEventListener('click', function () {
     if(pageArray[page].a1 == pageArray[page].correct){
         right++;
         targetDiv.remove();
+        intReset();
         anPage();
     }
     else{
         wrong++
         targetDiv.remove();
+        intReset();
         anPage();
     }
     
@@ -155,11 +164,13 @@ document.getElementById('q2').addEventListener('click', function () {
     if(pageArray[page].a2 == pageArray[page].correct){
         right++;
         targetDiv.remove();
+        intReset();
         anPage();
     }
     else{
         wrong++
         targetDiv.remove();
+        intReset();
         anPage();
     }
 });
@@ -167,11 +178,13 @@ document.getElementById('q3').addEventListener('click', function () {
     if(pageArray[page].a3 == pageArray[page].correct){
         right++;
         targetDiv.remove();
+        intReset();
         anPage();
     }
     else{
         wrong++
         targetDiv.remove();
+        intReset();
         anPage();
     }
 });
@@ -179,21 +192,18 @@ document.getElementById('q4').addEventListener('click', function () {
     if(pageArray[page].a4 == pageArray[page].correct){
         right++;
         targetDiv.remove();
+        intReset();
         anPage();
     }
     else{
         wrong++
         targetDiv.remove();
+        intReset();
         anPage();
     }
 });
-        run()
-        // let qPage = setInterval(function(){ 
-        //     wrong++
-        //     targetDiv.remove(); 
-        //     anPage();
-        //     clearInterval(qPage);
-        //  }, 10000)
+        
+        
 }
 //Main Function, creates DOM elements and refrences clicks function
 function questions (){
@@ -233,11 +243,12 @@ function questions (){
     timer.textContent = "Time :" + number;
     timer.setAttribute("id", "timer");
     targetDiv.appendChild(timer);
-    
+    run();
     click();
 }
 //anwser page function, this page exist to show the right anwser
 function anPage (){
+
     daddyDiv = document.getElementById("container");
     targetDiv = document.createElement('div');
     targetDiv.setAttribute("id","temp")
@@ -260,12 +271,6 @@ function anPage (){
 
     page++;
     scoreRun();
-    // let sPage = setInterval(function(){ 
-    //     targetDiv.remove();
-    //     finalPage(); 
-    //     questions(); 
-    //     clearInterval(sPage);
-    //     }, 5000);
     
 }
 
