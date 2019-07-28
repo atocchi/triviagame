@@ -101,6 +101,7 @@ function scoreRun() {
 function decrease() {
      number--;
      if (number === 0) {
+            clearInterval(scoreId);
             targetDiv.remove(); 
             number = 10;
             finalPage(); 
