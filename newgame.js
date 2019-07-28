@@ -71,6 +71,25 @@ let pageArray =[question.quest1,question.quest2,question.quest3,question.quest4,
 // Final Score Page, Does not continue to cycle
 function finalPage(){
     if (page == 7){
+        daddyDiv = document.getElementById("container");
+        targetDiv = document.createElement('div');
+        targetDiv.setAttribute("id","temp")
+        daddyDiv.appendChild(targetDiv);
+    
+        elFinal = document.createElement('h1');
+        elFinal.textContent = "Final Score";
+        elFinal.setAttribute("id", "Final");
+        targetDiv.appendChild(elFinal);
+    
+        elScore = document.createElement('h1');
+        elScore.textContent = "Right :" + right;
+        elScore.setAttribute("id", "right");
+        targetDiv.appendChild(elScore);
+    
+        elWrong = document.createElement('h1');
+        elWrong.textContent = "Wrong :" + wrong;
+        elWrong.setAttribute("id", "wrong");
+        targetDiv.appendChild(elWrong);
 
     }
 }
@@ -126,7 +145,7 @@ document.getElementById('q4').addEventListener('click', function () {
         anPage();
     }
 });
-         setTimeout(function(){ 
+        let qPage = setTimeout(function(){ 
             wrong++
             targetDiv.remove(); 
             anPage();
@@ -134,6 +153,7 @@ document.getElementById('q4').addEventListener('click', function () {
 }
 //Main Function, creates DOM elements and refrences clicks function
 function questions (){
+    clearTimeout();
     //targets container div and creates div to container questions, that can also be deleted 
     daddyDiv = document.getElementById("container");
     targetDiv = document.createElement('div');
@@ -190,7 +210,11 @@ function anPage (){
     targetDiv.appendChild(elWrong);
 
     page++;
-    setTimeout(function(){ targetDiv.remove(); questions(); }, 5000);
+    let sPage = setTimeout(function(){ 
+        targetDiv.remove();
+        finalPage(); 
+        questions(); 
+        }, 5000);
     
 }
 
