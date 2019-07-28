@@ -1,7 +1,9 @@
 
 //global vars that keep track of correct and incorrect anwsers
-let right = 0
-let wrong = 0
+let right = 0;
+let wrong = 0;
+let intervalId;
+let scoreId;
 
 //Large Object that Contains all Questions and Anwsers
 let question ={
@@ -66,7 +68,46 @@ let question ={
 //variables that keep track of how many pages have cycled through
 let page = 0;
 let pageArray =[question.quest1,question.quest2,question.quest3,question.quest4,question.quest5,question.quest6,question.quest7];
+let number = 10
 
+
+function run() {
+    clearInterval(intervalId);
+    intervalId = setInterval(decrement, 1000);
+    
+}
+function decrement() {
+    number--;
+    timer.textContent = "Time :" + number;
+    
+    
+    
+     if (number === 0) {
+            clearInterval(intervalId);
+            wrong++
+            targetDiv.remove(); 
+            number = 5;
+            anPage();
+
+    }
+
+
+
+}
+function scoreRun() {
+    clearInterval(scoreId);
+    scoreId = setInterval(decrease, 1000);
+  }
+function decrease() {
+     number--;
+     if (number === 0) {
+            targetDiv.remove(); 
+            number = 10;
+            finalPage(); 
+            questions();
+    }
+
+}
 
 // Final Score Page, Does not continue to cycle
 function finalPage(){
@@ -145,15 +186,17 @@ document.getElementById('q4').addEventListener('click', function () {
         anPage();
     }
 });
-        let qPage = setTimeout(function(){ 
-            wrong++
-            targetDiv.remove(); 
-            anPage();
-         }, 30000)
+        run()
+        // let qPage = setInterval(function(){ 
+        //     wrong++
+        //     targetDiv.remove(); 
+        //     anPage();
+        //     clearInterval(qPage);
+        //  }, 10000)
 }
 //Main Function, creates DOM elements and refrences clicks function
 function questions (){
-    clearTimeout();
+    
     //targets container div and creates div to container questions, that can also be deleted 
     daddyDiv = document.getElementById("container");
     targetDiv = document.createElement('div');
@@ -184,6 +227,11 @@ function questions (){
     ela4.textContent = pageArray[page].a4;
     ela4.setAttribute("id","q4");
     targetDiv.appendChild(ela4);
+
+    timer = document.createElement('h1');
+    timer.textContent = "Time :" + number;
+    timer.setAttribute("id", "timer");
+    targetDiv.appendChild(timer);
     
     click();
 }
@@ -210,11 +258,13 @@ function anPage (){
     targetDiv.appendChild(elWrong);
 
     page++;
-    let sPage = setTimeout(function(){ 
-        targetDiv.remove();
-        finalPage(); 
-        questions(); 
-        }, 5000);
+    scoreRun();
+    // let sPage = setInterval(function(){ 
+    //     targetDiv.remove();
+    //     finalPage(); 
+    //     questions(); 
+    //     clearInterval(sPage);
+    //     }, 5000);
     
 }
 
