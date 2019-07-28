@@ -94,14 +94,14 @@ function decrement() {
 
 }
 function scoreRun() {
-    // num = 5;
+    num = 5;
     clearInterval(scoreId);
     scoreId = setInterval(decrease, 1000);
   }
 function decrease() {
      num--;
      if (num === 0) {
-            // number = 10;
+            number = 10;
             clearInterval(scoreId);
             targetDiv.remove(); 
             finalPage(); 
